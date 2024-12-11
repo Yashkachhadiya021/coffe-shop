@@ -1,0 +1,68 @@
+{
+  "project_info": {
+    "project_number": "837133746759",
+    "firebase_url": "https://food-417f9-default-rtdb.firebaseio.com",
+    "project_id": "food-417f9",
+    "storage_bucket": "food-417f9.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:837133746759:android:b91d5268059ac508ffa762",
+        "android_client_info": {
+          "package_name": "com.example.caffee"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDwTA5qEcl6bGaOzuF96r1KKu3EkkQuzsw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:837133746759:android:3b24738600db384dffa762",
+        "android_client_info": {
+          "package_name": "com.example.food"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDwTA5qEcl6bGaOzuF96r1KKu3EkkQuzsw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:837133746759:android:f8744e64a1342e0fffa762",
+        "android_client_info": {
+          "package_name": "com.example.shopping"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDwTA5qEcl6bGaOzuF96r1KKu3EkkQuzsw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
