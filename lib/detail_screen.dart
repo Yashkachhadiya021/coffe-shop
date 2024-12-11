@@ -214,7 +214,7 @@ class _DetailScreenState extends State<DetailScreen> {
                                   child: Text(
                                     size[index],
                                     style: TextStyle(
-                                      color: currentindex==index ? Color(0xFFce8050) : Colors.brown,
+                                      color: currentindex==index ? Color(0xFFce8050) : Colors.black,
                                     ),
                                   ),
                                 ),
