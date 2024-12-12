@@ -17,6 +17,7 @@ class Sample extends StatefulWidget {
 class _SampleState extends State<Sample> {
   DatabaseReference dbRef = FirebaseDatabase.instance.ref();
   List<Student> studentList = [];
+  List<Student> tempdata=[];
   @override
   void initState() {
     // TODO: implement initState
@@ -34,24 +35,7 @@ class _SampleState extends State<Sample> {
     'assets/coffee3.png',
     'assets/coffee4.png',
   ];
-  List coffeename=[
-    'Caffee Mocha',
-    'Flat White',
-    'Caffe Panna',
-    'Cappuccino',
-  ];
-  List coffeetype=[
-    'Deep Foam',
-    'Espresso',
-    'Steamed Milk',
-    'Chocalate',
-  ];
-  List price=[
-    "\$ 4.53",
-    "\$ 3.53",
-    "\$ 5.53",
-    "\$ 6.53",
-  ];
+
   int currentindex=0;
   @override
   Widget build(BuildContext context) {
@@ -59,10 +43,9 @@ class _SampleState extends State<Sample> {
         title: Text("Coffee"),
         headerWidget: headerWidget(),
         body:[
-          gridView(studentList),
+          gridView(tempdata),
 
          // for(int i = 0 ; i < studentList.length ; i++)
-
         ],
       fullyStretchable: true,
       backgroundColor: Colors.white,
@@ -196,15 +179,29 @@ class _SampleState extends State<Sample> {
       itemCount: catagory.length,
       scrollDirection: Axis.horizontal,
       itemBuilder: (context, index) {
-
         return Padding(
           padding: const EdgeInsets.fromLTRB(0, 8, 0, 8),
           child: GestureDetector(
             onTap: () {
               setState(() {
+                Text txt= Text(
+                  catagory[index],
+                  style: TextStyle(
+                    color: currentindex==index ? Colors.white : Colors.black,
+                  ),
+                );
+                var value=txt.data;
+                print("type: "+value!);
+                tempdata.clear();
+                for (var Student in studentList) {
+                  if(Student.studentData!.coffeetype.toString()==value){
+                    tempdata.add(Student);
+                    print(tempdata.length.toString());
+                  }
+                }
                 currentindex=index;
-                coffee.shuffle();
-                coffeename.shuffle();
+                //coffee.shuffle();
+                //coffeename.shuffle();
               });
             },
             child: Padding(
@@ -243,7 +240,7 @@ class _SampleState extends State<Sample> {
           height: 700,
           child: GridView.builder(
             padding: EdgeInsets.only(top: 0),
-            itemCount: coffee.length,
+            itemCount: tempdata.length,
             gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                 crossAxisCount: 2,
                 mainAxisExtent: 270),

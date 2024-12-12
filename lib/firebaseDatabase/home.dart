@@ -1,3 +1,5 @@
+import 'dart:collection';
+
 import 'package:firebase_database/firebase_database.dart';
 import 'student_model.dart';
 import 'package:flutter/material.dart';
@@ -8,13 +10,24 @@ class Home extends StatefulWidget {
   @override
   State<Home> createState() => _HomeState();
 }
-
+List<String> catagory=<String>[
+  'All Coffee',
+  'Indonesiano',
+  'Machiato',
+];
+typedef MenuEntry = DropdownMenuEntry<String>;
 class _HomeState extends State<Home> {
+
+  static final List<MenuEntry> menuEntries = UnmodifiableListView<MenuEntry>(
+    catagory.map<MenuEntry>((String name) => MenuEntry(value: name, label: name)),
+  );
+  String dropdownValue = catagory.first;
 
   DatabaseReference dbRef = FirebaseDatabase.instance.ref();
   final TextEditingController _edtNameController = TextEditingController();
   final TextEditingController _edtAgeController = TextEditingController();
   final TextEditingController _edtSubjectController = TextEditingController();
+  final TextEditingController _edtCoffeeController = TextEditingController();
   List<Student> studentList = [];
   bool updateStudent = false;
 
@@ -42,6 +55,7 @@ class _HomeState extends State<Home> {
         _edtNameController.text = "";
         _edtAgeController.text = "";
         _edtSubjectController.text = "";
+        _edtCoffeeController.text="";
         updateStudent = false;
         studentDialog();
       },child: const Icon(Icons.save),),
@@ -59,12 +73,24 @@ class _HomeState extends State<Home> {
               TextField(controller: _edtNameController, decoration: const InputDecoration(helperText: "Name"),),
               TextField(controller: _edtAgeController, decoration: const InputDecoration(helperText: "type")),
               TextField(controller: _edtSubjectController, decoration: const InputDecoration(helperText: "price")),
+              DropdownMenu(
+                controller: _edtCoffeeController,
+                helperText: "Select Coffee Type",
+                initialSelection: catagory.first,
+                  onSelected: (String? value) {
+                    setState(() {
+                      dropdownValue = value!;
+                    });
+                  },
+                  dropdownMenuEntries: menuEntries
+              ),
               const SizedBox(height: 10,),
               ElevatedButton(onPressed: (){
                 Map<String,dynamic> data = {
                   "name": _edtNameController.text.toString(),
                   "type": _edtAgeController.text.toString(),
-                  "price": _edtSubjectController.text.toString()
+                  "price": _edtSubjectController.text.toString(),
+                  "coffeetype": _edtCoffeeController.text.toString()
                 };
                 if(updateStudent){
                   dbRef.child("Coffee").child(key!).update(data).then((value) {
@@ -104,6 +130,7 @@ class _HomeState extends State<Home> {
         _edtNameController.text = student.studentData!.name!;
         _edtAgeController.text = student.studentData!.type!;
         _edtSubjectController.text = student.studentData!.price!;
+        _edtCoffeeController.text = student.studentData!.coffeetype!;
         updateStudent = true;
         studentDialog(key: student.key);
       },
@@ -122,6 +149,7 @@ class _HomeState extends State<Home> {
                 Text(student.studentData!.name!),
                 Text(student.studentData!.type!),
                 Text(student.studentData!.price!),
+                Text(student.studentData!.coffeetype.toString())
               ],
             ),
 
