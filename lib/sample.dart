@@ -34,6 +34,7 @@ class _SampleState extends State<Sample> {
     'assets/coffee2.png',
     'assets/coffee3.png',
     'assets/coffee4.png',
+    'assets/background.png',
   ];
 
   int currentindex=0;
@@ -44,8 +45,6 @@ class _SampleState extends State<Sample> {
         headerWidget: headerWidget(),
         body:[
           gridView(tempdata),
-
-         // for(int i = 0 ; i < studentList.length ; i++)
         ],
       fullyStretchable: true,
       backgroundColor: Colors.white,
@@ -186,17 +185,29 @@ class _SampleState extends State<Sample> {
               setState(() {
                 Text txt= Text(
                   catagory[index],
+
                   style: TextStyle(
                     color: currentindex==index ? Colors.white : Colors.black,
                   ),
                 );
-                var value=txt.data;
+                var value = txt.data;
+                if (index==0) {
+                  tempdata.clear();
+                  print("coffee: " + value!);
+                  for (var Student in studentList) {
+                    tempdata.add(Student);
+                  }
+                  print("coffee: " + tempdata.length.toString());
+
+                }
+                else{
                 print("type: "+value!);
                 tempdata.clear();
                 for (var Student in studentList) {
                   if(Student.studentData!.coffeetype.toString()==value){
                     tempdata.add(Student);
                     print(tempdata.length.toString());
+                  }
                   }
                 }
                 currentindex=index;
@@ -237,10 +248,10 @@ class _SampleState extends State<Sample> {
     return Column(
       children: [
         SizedBox(
-          height: 700,
+         // height: 800,
           child: GridView.builder(
             padding: EdgeInsets.only(top: 0),
-            itemCount: tempdata.length,
+            itemCount:dataList.length,
             gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                 crossAxisCount: 2,
                 mainAxisExtent: 270),
